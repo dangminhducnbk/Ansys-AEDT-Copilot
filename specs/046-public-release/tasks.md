@@ -106,7 +106,7 @@ Independent test: rehearsal on a COPY — every file on disk kept, 0 findings, u
   (private); create public `Ansys-AEDT-Copilot`, empty
 - [x] T030 [US1] Remotes: `origin` → `archive` (`set-url --push archive DISABLED`), add new `origin`;
   `public_guard.py install`; file list vs before (SC-003)
-- [ ] T031 [US1] OWNER GO → `git push -u origin main` + `git push origin v5.7.0` (pre-push runs); anonymous check:
+- [x] T031 [US1] OWNER GO → `git push -u origin main` + `git push origin v5.7.0` (pre-push runs); anonymous check:
   public repo opens, archive 404 (SC-005 / SC-006)
 
 ## Phase 7 — Polish
@@ -114,9 +114,9 @@ Independent test: rehearsal on a COPY — every file on disk kept, 0 findings, u
 - [x] T032 `VERSION` 5.7.0, `CHANGELOG.md` 5.7.0 (new public repo URL: colleagues re-clone; setup.bat rerun for Claude
   Code registration), done before T028 so the clean commit holds them
 - [x] T033 `CLAUDE.local.md` status row 046 (local only); memory note: public repo + guard
-- [ ] T034 Install test from a fresh clone of the public repo into a scratch path (quickstart D) with Claude Code
+- [x] T034 Install test from a fresh clone of the public repo into a scratch path (quickstart D) with Claude Code
   registration printed / dry; record result
-- [ ] T035 `graphify update .`; propose the constitution amendment text (research R8) for the owner's
+- [x] T035 `graphify update .`; propose the constitution amendment text (research R8) for the owner's
   `/speckit-constitution`
 
 ## Dependencies
