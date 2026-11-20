@@ -1,0 +1,17 @@
+# TEAM DEFAULTS - layout edit (aedt_copilot.edit_layout). Edit column Default only. Units mm / mm2.
+# A plan can override any key in "rules": {...}. Values taken from the B04 PI optimisation cases (2026-10-31..11-01).
+Key,Parameter,Unit,Default,Description
+plane_gap,Plane-to-plane gap,mm,0.254,Gap between new/carved copper and copper of other nets on the same layer
+min_copper_gap,Minimum copper gap (check),mm,0.1,DRC limit used by checks: trace/pad to other-net copper
+via_plane_clearance,Plane clearance of other-net vias,mm,0.1,New copper keeps pad radius + this from other-net vias/pins
+antipad_min_r,Minimum antipad radius,mm,0.3035,Smallest clearance circle used for other-net vias in new copper
+antipad_margin,Antipad margin of new vias,mm,0.125,Void radius on other-net planes = pad radius + this
+land_margin,Via landing margin,mm,0.1,New via pad must sit this far inside own-net copper on from/to layers
+via_pitch,Via pitch (other net),mm,0.6,Minimum centre distance from a new via to a via/pin of ANOTHER net on the same layers (plan key pitch)
+via_pitch_same,Via pitch (same net),mm,0.3,Minimum centre distance from a new via to a same-net via/pin and to other new vias (plan key pitch_same)
+via_search,Via search radius,mm,0.8,If a via position fails a rule it is moved up to this distance (else dropped)
+via_search_step,Via search step,mm,0.05,Grid step of the via position search
+min_piece_mm2,Smallest copper piece kept,mm2,0.05,Copper pieces smaller than this are not created
+sliver_mm2,Sliver void area,mm2,0.001,Voids smaller than this without a via inside are removed after a merge
+region_margin,Region margin,mm,2.0,Margin added around all ops to choose the region read from EDB
+image_px,Image width,px,900,Width of before/after images

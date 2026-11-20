@@ -1,0 +1,15 @@
+{
+  "items": {
+    "machine-tools": 1,
+    "git": 1,
+    "gitignore": 1,
+    "claude-md": 2,
+    "speckit": 1,
+    "constitution": 1,
+    "graphify": 1,
+    "guard-hook": 1,
+    "docs-imports": 1,
+    "finish": 1
+  },
+  "updated": "2026-11-04"
+}

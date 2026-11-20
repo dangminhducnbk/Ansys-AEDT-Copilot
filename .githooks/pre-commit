@@ -1,0 +1,8 @@
+#!/bin/sh
+# 046 public repository guard: refuses customer data (rules: tools/public_guard.py, list: .public_guard.local.json).
+ROOT="$(git rev-parse --show-toplevel)"
+if [ -x "$ROOT/.venv/Scripts/python.exe" ]; then PY="$ROOT/.venv/Scripts/python.exe"
+elif command -v py >/dev/null 2>&1; then PY="py -3"
+elif command -v python >/dev/null 2>&1; then PY="python"
+else echo "public_guard: no Python found - pre-commit refused" >&2; exit 1; fi
+exec $PY "$ROOT/tools/public_guard.py" pre-commit "$@"

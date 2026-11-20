@@ -1,0 +1,118 @@
+# TEAM DEFAULTS - aedt_copilot. Edit column Default only (text editor recommended). Do not rename Key.
+# Mandatory=yes -> user fills per channel (YELLOW), Default empty. Scope channel -> per channel; job -> whole job.
+# Type: num | bool | text | list (comma separated, quoted). Decimal point = '.'. Lines starting with # are ignored.
+Key,Parameter,Unit,Type,Scope,Mandatory,Default,Description
+cutout.extent_type,Extent type,,text,channel,no,conformal,conformal | convex_hull | bounding_box
+cutout.expansion,Extent expansion,-/mm,num,channel,no,0.06,Unitless factor x signal extent size (AEDT Auto Generate Extent). mm if expansion_unitless = false
+cutout.expansion_unitless,Expansion unitless,,bool,channel,no,true,true = factor; false = mm
+cutout.round_corner,Round corner,,bool,channel,no,true,
+cutout.increments,Extent increments,,num,channel,no,1,
+cutout.reference_nets,Reference nets,,list,channel,no,GND,Comma separated
+cutout.end_expansion_step,End expansion step,-/mm,num,channel,no,0.02,End IC / connector that has GND pins but none fully inside the extent: its region gets expansion + this step per try until one is inside; no maximum (same unit as expansion)
+cutout.end_region_margin_mm,End region margin,mm,num,channel,no,1.0,End region = component body (pin pads) + this margin; only this region is enlarged
+cleanup.island_min_ratio,GND island min ratio,-,num,channel,no,0.05,Plane layer: delete GND pieces smaller than ratio x largest piece
+cleanup.shield_keep_dist_mm,Shield keep distance,mm,num,channel,no,0.5,Signal layer: keep GND within this distance of same-layer signal trace
+cleanup.shield_min_area_mm2,Shield min area,mm2,num,channel,no,0.5,Signal layer: delete smaller GND pieces
+cleanup.shield_need_via,Shield needs GND via,,bool,channel,no,true,Signal layer: GND piece must connect to a GND via
+cleanup.gnd_via_keep_dist_mm,PTH GND via keep distance,mm,num,channel,no,1,Delete PTH GND vias farther from signal
+cleanup.gnd_microvia_keep_dist_mm,Microvia GND keep distance,mm,num,channel,no,1,Delete GND microvias farther from signal or with an open end
+cleanup.bga_gnd_pin_keep_dist_mm,BGA GND pin keep distance,mm,num,channel,no,1.6,BGA: keep GND pins within this distance of signal pins
+cleanup.smd_gnd_pin_keep_dist_mm,SMD / connector GND pin keep distance,mm,num,channel,no,1.6,SMD / via-in-pad / connector end (rebuilt): keep own GND pins within this distance of signal pins; nearest GND pin of each signal pin and the chosen GND reference always kept
+series.keep,Keep series R/C/L,,bool,channel,no,true,2-pin parts on net path
+series.model_r_ohm,Series part model R,ohm,num,channel,no,0,
+port.type,Port type,,text,channel,no,coax,coax
+port.smd_new_component,SMD rebuild component,,bool,channel,no,true,"Move pin to pad end, GND plane, new component <part>_cut"
+port.smd_gnd_search_margin_mm,SMD GND search margin,mm,num,channel,no,0,
+port.smd_gnd_plane_gap_mm,SMD GND plane gap,mm,num,channel,no,0.1,
+solder_ball.enable,Solder ball,,bool,channel,no,true,BGA and SMD ends
+solder_ball.diameter_ratio,Solder ball diameter ratio,-,num,channel,no,0.95,x short side of signal pad
+solder_ball.height_mm,Solder ball height,mm,num,channel,no,0.2,
+solder_ball.shape,Solder ball shape,,text,channel,no,cylinder,cylinder | spheroid
+solder_ball.material,Solder ball material,,text,channel,no,solder,
+component.die_type,Die type,,text,channel,no,flip_chip,038 Component Model: none | flip_chip | wire_bond (both ends; per end in component.model)
+component.die_orientation,Die orientation,,text,channel,no,chip_down,038: chip_down | chip_up
+component.die_height_mm,Die height,mm,num,channel,no,0,038: wire bond only
+component.port_location,Port location,,text,channel,no,end,038: end = pad end on the component-body side (SMD rebuild as before) | centre = pad centre; BGA always centre
+component.model,Component model per end,,text,channel,no,,038: JSON {refdes: {die_type die_orientation die_height_mm ball_shape ball_ratio ball_height_mm ball_material port_location}} (empty = rows above)
+airbox.extent_type,Airbox extent,,text,channel,no,conforming,conforming | bounding_box | convex_hull
+airbox.dielectric_extent_type,Dielectric extent,,text,channel,no,conforming,conforming | bounding_box | convex_hull
+airbox.horizontal,Airbox horizontal padding,-,num,channel,no,0.05,Unitless
+airbox.positive_z,Airbox +Z padding,-,num,channel,no,0.2,Unitless
+airbox.negative_z,Airbox -Z padding,-,num,channel,no,0.2,Unitless
+airbox.z_sync,Vertical padding sync,,bool,channel,no,true,038: true = negative padding = positive padding
+airbox.dielectric_horizontal,Dielectric horizontal padding,-,num,channel,no,0,038: unitless (multiple of the model size)
+airbox.z_from_stackup,Vertical padding from stackup,,bool,channel,no,true,Not from XY extent
+airbox.open_region,Open region,,text,channel,no,radiation,radiation | pml
+airbox.operating_freq,Operating frequency,,text,channel,no,5GHz,
+setup.name,Setup name,,text,channel,no,Setup1,
+setup.adaptive_freq,Adaptive frequency,GHz,text,channel,no,auto,auto = sweep stop
+setup.max_passes,Max passes,,num,channel,no,30,
+setup.max_delta_s,Max delta S,,num,channel,no,0.01,
+setup.max_refine_per_pass,Max refine per pass,%,num,channel,no,10,Whole number 1..100 (AEDT Maximum Refinement Per Pass)
+setup.min_passes,Min passes,,num,channel,no,1,
+setup.min_converged_passes,Min converged passes,,num,channel,no,1,
+setup.basis_order,Basis order,,text,channel,no,mixed,mixed | first | second
+setup.max_delta_zo,Max delta Zo,%,num,channel,no,0.1,
+setup.arc_step_deg,Arc step size,deg,num,channel,no,30,HFSS circle and arc approximation (Advanced Meshing)
+setup.solution_mode,Solution frequency mode,,text,channel,no,single,038: single | multi
+setup.multi_freqs,Multi-frequency rows,,text,channel,no,,038: JSON [[freq_ghz max_delta_s] ...] (mode multi)
+setup.multi_max_passes,Multi-frequency max passes,,num,channel,no,10,038: mode multi
+setup.via_mesh_3d,Mesh vias as 3D,,bool,channel,no,true,038: Advanced / Vias: Mesh as a 3D via (true = AEDT default kept)
+setup.via_num_sides,Number of sides for meshed vias,,num,channel,no,6,038: 3..64
+sweep.name,Sweep name,,text,channel,no,Sweep1,
+sweep.type,Sweep type,,text,channel,no,interpolation,interpolation | discrete
+sweep.start_ghz,Frequency start,GHz,num,channel,yes,,MANDATORY
+sweep.stop_ghz,Frequency stop,GHz,num,channel,yes,,MANDATORY. Also adaptive frequency
+sweep.step_ghz,Frequency step,GHz,num,channel,yes,,MANDATORY
+sweep.max_solutions,Max solutions,,num,channel,no,2500,
+sweep.error_tolerance_pct,Interpolation error tolerance,%,num,channel,no,0.1,
+sweep.enforce_causality,Enforce causality,,bool,channel,no,true,
+sweep.enforce_passivity,Enforce passivity,,bool,channel,no,true,
+sweep.passivity_tolerance,Passivity tolerance,,num,channel,no,1e-06,
+sweep.use_q3d_dc,Use Q3D to solve DC point,,bool,channel,no,false,038
+sweep.ranges,Sweep ranges,,text,channel,no,,038: JSON [[linear_step|linear_count|log_scale start_ghz end_ghz step_ghz|count|samples] ...] (empty = start / stop / step)
+display.signal_rgb,Signal net color,RGB,list,job,no,"255,0,0",
+display.gnd_rgb,GND net color,RGB,list,job,no,"0,0,255",
+display.highlight,Highlight nets,,bool,job,no,true,
+review.sample_step_mm,Review sample step,mm,num,job,no,0.05,Layout review: sample spacing along traces (SOV / loss of reference)
+review.pad_exclusion_mm,Review pad exclusion,mm,num,job,no,0.3,Layout review: ignore samples this close to a same-net pad/via center (own antipad)
+review.plane_area_ratio,Review plane area ratio,-,num,job,no,0.25,Layout review: plane layer if largest GND polygon >= ratio x largest GND polygon of board
+review.gnd_via_flag_mm,Review GND via flag distance,mm,num,job,no,1,Layout review: flag signal via if nearest GND via is farther
+review.ref_change_gnd_via_mm,Review ref-change GND via distance,mm,num,job,no,1,Layout review: reference change is HIGH if no GND via within this distance
+review.stack_merge_mm,Review via stack merge,mm,num,job,no,0.15,Layout review: same-net vias closer than this = one via stack
+review.max_images,Review images per channel,,num,job,no,40,Layout review: zoom images per channel (most severe first)
+review.zoom_margin_mm,Review zoom margin,mm,num,job,no,1,Layout review: margin around finding in zoom image
+review.use_snapshot,Review on layout snapshot,,bool,job,no,true,Layout review: measure on the cached layout snapshot (false = read EDB live as before 2.2)
+review.pair_gap_ratio,Review pair gap ratio,-,num,job,no,1.5,Layout review rule 2: pair members farther apart than nominal gap x this = MEDIUM
+review.pair_gap_min_len_mm,Review pair gap min length,mm,num,job,no,0.5,Layout review rule 2: only splits at least this long
+review.bga_breakout_margin_mm,Review BGA break-out margin,mm,num,job,no,0,Layout review rule 2: a split whose middle lies in the body of a BGA end (+ this margin) is an intentional break-out and never NOT OK
+review.coupling_gap_factor,Review coupling gap factor,-,num,job,no,3,Layout review rule 3: another net closer than this x trace width (edge to edge) = coupling (3W)
+review.coupling_min_len_mm,Review coupling min length,mm,num,job,no,2.5,Layout review rule 3: only parallel runs at least this long (100 mil)
+review.plane_edge_factor,Review plane edge factor,-,num,job,no,3,Layout review rule 4: reference plane / void edge closer than this x dielectric height (3H) = MEDIUM
+review.plane_edge_min_mm,Review plane edge min distance,mm,num,job,no,0.2,Layout review rule 4: edge distance limit is at least this
+review.plane_edge_min_len_mm,Review plane edge min length,mm,num,job,no,0.5,Layout review rule 4: only runs at least this long
+review.serp_gap_factor,Review serpentine gap factor,-,num,job,no,3,Layout review rule serpentine: gap G between adjacent parallel bends must be >= this x H (dielectric height to the nearest reference plane)
+review.serp_amp_factor,Review serpentine amplitude factor,-,num,job,no,3,Layout review rule serpentine: bump height A (base line centre to bump top centre) must be <= this x trace width W
+review.serp_chamfer_factor,Review serpentine chamfer factor,-,num,job,no,1.5,Layout review rule serpentine: 45 deg chamfer c must be >= this x trace width W
+review.serp_chamfer_tol,Review serpentine chamfer tolerance,-,num,job,no,0.05,Layout review rule serpentine: relative tolerance on the chamfer limit (0.05 = 5 %)
+review.serp_rise_factor,Review serpentine detection rise,-,num,job,no,1.5,Layout review rule serpentine (detection): bump = centre distance to the partner > nominal gap + this x W
+review.serp_bump_max_mm,Review serpentine bump max length,mm,num,job,no,2,Layout review rule serpentine (detection): bump shorter than this along the trace
+review.serp_bump_spacing_mm,Review serpentine bump spacing,mm,num,job,no,2,Layout review rule serpentine (detection): bumps closer than this belong to one serpentine
+review.serp_bump_ratio,Review serpentine bump height ratio,-,num,job,no,1.43,Layout review rule serpentine (detection): heights of neighbour bumps within 1/ratio .. ratio
+review.serp_min_bumps,Review serpentine min bumps,,num,job,no,2,Layout review rule serpentine (detection): at least this many repeated bumps
+review.serp_excl_mm,Review serpentine pin / via exclusion,mm,num,job,no,1,Layout review rule serpentine (detection): ignore samples this close to a pin / via of the pair (break-out)
+review.serp_step_mm,Review serpentine sample step,mm,num,job,no,0.01,Layout review rule serpentine: sample spacing along the trace
+review.stackup_tol_mm,Review stackup width / gap tolerance,mm,num,job,no,0.01,Layout review rule 6: trace width / pair gap differing from the stackup table by more than this = MEDIUM
+review.neckdown_zone_mm,Review neck-down zone,mm,num,job,no,1,Layout review rules 2 3 4 6: skip this distance around pads / vias of the channel (break-out)
+snapshot.window_margin_mm,Snapshot window margin,mm,num,job,no,5,Layout snapshot: window = bbox of the nets + this margin (>= 1 + review.zoom_margin_mm + 2)
+snapshot.arc_tol_um,Snapshot arc tolerance,um,num,job,no,1,Layout snapshot: max chord error when arcs are stored as straight segments
+snapshot.use_for_preview,Cut preview on layout snapshot,,bool,job,no,true,Cut preview (Gate A): read the board from the layout snapshot; the cut extent still comes from AEDT (cached per nets / settings / factor). false = read EDB live as before 2.6
+snapshot.use_for_region,layout_region on layout snapshot,,bool,job,no,true,Layout edit: layout_region reads the board from the layout snapshot (identical to live; first call builds the whole board once) and layout_edit reuses an existing snapshot window for its before read. false = read EDB live as before 2.7
+run.output_subdir,Output folder,,text,job,no,autocut,<board dir>/<folder>
+# interface_sim (job scope, quy trình interface simulation - guide interface_sim)
+interface_sim.connector_patterns,Connector refdes / part patterns,,list,job,no,"J*,CN*,CON*",End check: end component matching these -> connector end (default handling below)
+interface_sim.connector_handling,Connector end default handling,,text,job,no,smd_rebuild,End check: default handling of a connector end (keep_component / smd_rebuild / no_solder_ball / stop_interface); engineer may change at Gate B
+interface_sim.round_pad_aspect_max,Round pad max aspect,,num,job,no,1.1,End check: BGA signal pad long/short side above this -> non_round_pad_bga
+interface_sim.pad_size_tol_pct,Pad size tolerance,%,num,job,no,10,End check: signal pads of one end differ more than this -> pad_size_mismatch
+interface_sim.gnd_near_smd_mm,GND near SMD signal pin,mm,num,job,no,1.0,End check: GND pin search radius around SMD signal pins
+interface_sim.keep_pad_margin_mm,Keep-pad margin,mm,num,job,no,0.5,No-GND end option gnd_keep_pad: cut extent grows by the GND pad + this margin

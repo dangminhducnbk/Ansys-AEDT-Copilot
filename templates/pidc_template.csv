@@ -1,0 +1,27 @@
+# TEAM DEFAULTS - PI-DC report (aedt_copilot.pi_dc). Edit column Default only. Do not rename Key. Decimal point = '.'.
+# Separate from autocut_template.csv (cut board). Lines starting with # are ignored.
+Key,Parameter,Unit,Type,Scope,Mandatory,Default,Description
+pidc.cd_outer_A_mm2,Current density limit outer,A/mm2,num,job,no,150,Limit on the first and last metal layer
+pidc.cd_inner_A_mm2,Current density limit inner,A/mm2,num,job,no,100,Limit on inner metal layers
+pidc.cd_window_mm,Averaging window,mm,num,job,no,0.5,Square window side for the area-averaged current density
+pidc.cd_min_copper_frac,Window min copper fraction,-,num,job,no,0.5,Windows with less copper are ignored
+pidc.cd_warn_frac,Warn fraction,-,num,job,no,0.5,WARN if J_avg_max > frac x limit; FAIL if > limit
+pidc.cd_bg_factor,Outstanding vs background,-,num,job,no,2,Region is outstanding if J_avg_max >= factor x layer background (median window)
+pidc.cd_max_regions,Max regions per image,,num,job,no,3,
+pidc.cd_narrow_window_mm,Narrow-copper window,mm,num,job,no,0.1,Used only when no cd_window_mm window has enough copper (thin traces / RDL): mean J over copper pixels in this window
+pidc.cd_tiny_area_mm2,Tiny copper piece,mm2,num,job,no,0.002,Copper pieces smaller than this are not judged (INFO only) in the narrow-copper path
+pidc.cd_pin_keepout_mm,Pin-node keep-out,mm,num,job,no,0.25,Windows centred on a component pad (+ this margin) are pin-node artefacts (SIwave injects current at the pin node): INFO only
+pidc.via_base_temp_C,Via base temperature,degC,num,job,no,25,IPC via capacity I_cap = 0.024 dT^0.44 (3.14 r_mil^2)^0.725 with dT = DC sim temperature (run cfg GlobalTemperature) - this value
+pidc.via_warn_util,Via warn utilisation,-,num,job,no,0.8,WARN if I/I_cap > value; FAIL if > 1
+pidc.via_top_n,Vias circled per image,,num,job,no,5,Highest-current vias circled (plus all FAIL/WARN)
+pidc.pt_include,Power tree include,,text,job,no,Yes,Include column of every power-tree component (Yes | No)
+pidc.pt_current_A,Power tree current threshold,A,num,job,no,100,Current Threshold (A) of every component (user may change)
+pidc.pt_voltage_type,Power tree voltage threshold type,,text,job,no,Percentage,Percentage | Value
+pidc.pt_voltage,Power tree voltage threshold,% or V,num,job,no,3,Voltage Percentage (%) - or Voltage Value (V) if type = Value (user may change)
+pidc.pt_aggregate_pins,Aggregate pins on a net within a component,,bool,job,no,true,ScrActivateDcPowerTreePinAggregation
+pidc.pt_output_power_loss,Output power loss of every net,,bool,job,no,false,ScrShowDcPowerTreePowerLossOfNets (list under the tree image)
+pidc.image_width,SIwave export image width,px,num,job,no,10000,EXPORT_REPORT_IMAGE_WIDTH (SIwave caps width at 10000)
+pidc.image_height,SIwave export image height,px,num,job,no,6000,EXPORT_REPORT_IMAGE_HEIGHT (6000 = 6x the default 1000)
+pidc.job_timeout_s,Export timeout per job,s,num,job,no,900,
+pidc.launch,SIwave launch,,text,job,no,explorer,explorer (interactive desktop with GPU) | direct
+pidc.output_folder,Report folder name,,text,job,no,Ansys AEDT Copilot,Created inside the user's SIwave folder

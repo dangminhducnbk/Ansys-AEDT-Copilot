@@ -1,0 +1,16 @@
+# Research: Layout review gate (025)
+
+| # | Decision | Rationale | Alternatives |
+|---|---|---|---|
+| R1 | Verdict = STOP if any point with FINAL severity HIGH, or the review is incomplete (channel error / any check error); else CONTINUE | Spec FR-004 / FR-006, clarify Q2 / Q3. Final severity = engineer decision when present (existing `isim_review_decide` semantics), else code suggestion | MEDIUM also stops (rejected Q2) |
+| R2 | Board "unchanged" = `layout_snapshot.key.board_key` fields `aedb`, `def_size`, `def_mtime_ns` (023) | Same key the snapshot uses; `edb.def.tmp` ignored; no EDB open → reuse < 5 s | `user_settings.board_fingerprint` (same data, other format — kept for user_settings); hashing edb.def (slow, 240 MB boards) |
+| R3 | Record files `review_<time>.json` under `<board dir>/Ansys AEDT Copilot/reviews/<stem>/`, never overwritten | Q4; same output root as snapshots; history kept (Principle II); lookup newest-first by match key | One file per channel (overwrites history); inside `.aedb` (never write the board) |
+| R4 | Interface review writes a record too (source `isim:<request>/<iface>`) | One lookup place for reuse "from an earlier request" (FR-011) | Scan request folders (slow, request ids / folders change in 024) |
+| R5 | Gate review needs all 4 checks; partial `isim_review(checks=...)` goes to `review_partial.json` | Spec assumption; a one-check question must not replace or fake the gate review | Reject partial at started (loses a useful quick question) |
+| R6 | Decisions and override are bound to the review's `measured_at` | A new measurement (board fixed / changed) must not inherit an old "vẫn cut" (Q5, FR-007 "bound to the review") | Bind to interface only (stale override survives a board change) |
+| R7 | Override = new tool `isim_review_override` with gate flag | Catalog test "every gated entry refuses with flag false" → a gate on `isim_review_decide` would block normal decisions; one tool = one operation (Principle X) | Param on `isim_confirm_content` (mixes Gate A with review decision; cut would still need to know) |
+| R8 | Gate checked in server AND package (`content.confirm`, `cut.run`) | Principle I says server; package check keeps CLI / test scripts honest (regression.py goes through the package) | Server only (scripts could bypass) |
+| R9 | Matching of ends / nets: unordered ends pair; net set = the names the review was asked for (proposal / content `nets`), not the expanded traced nets | Content nets are exact names after Gate A; the proposal carries the same names; expanded trace may add series-side nets that are not in `content.nets` | Compare traced nets (false out-of-date) |
+| R10 | Requests already past Gate A: gate only on a NEW Gate A (content changed or step `started`) and on cut at `content_agreed` | FR-013; apply / re-apply / merge / run never check the review | Retro-block (breaks running work) |
+| R11 | Reuse copies record decisions into `user_settings.review.decisions` (with the record's `measured_at`); an override is never copied | FR-012 / Q5 | Copy nothing (engineer re-decides every point) |
+| R12 | Thresholds compared = template `review.*` minus `use_snapshot` | `use_snapshot` changes the path, not the numbers (023 golden identical) | Compare all rows (needless re-measure) |

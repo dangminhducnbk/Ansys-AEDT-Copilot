@@ -1,0 +1,17 @@
+# Cấu hình RIÊNG của từng máy (setup.bat tạo/cập nhật file này). Không chứa quy tắc cắt.
+aedt_version: "2026.1"
+# (tuỳ chọn) Đường dẫn AnsysEM, vd C:\Program Files\ANSYS Inc\v261\AnsysEM. Trống = tự tìm (env -> registry -> quét).
+aedt_root:
+# Python có pyedb .NET + pythonnet (setup.bat tạo .venv trong thư mục repo).
+python: ".venv\\Scripts\\python.exe"
+# Cổng gRPC của AEDT đang mở để xem kết quả (để trống = để PyAEDT tự tìm / tự mở AEDT).
+aedt_grpc_port:
+# (tuỳ chọn, 040) Cổng dịch vụ lưu config.html trên máy này (127.0.0.1). Trống = 17880 (bận thì thử +1..+9).
+# config_port: 17880
+# (tuỳ chọn) Server chạy simulation cho interface simulation (isim_run). Ví dụ:
+# sim_servers:
+#   - name: srv1
+#     host: 192.0.2.20
+#     port: 50051
+#     sim_dir_local: Z:\simulation
+#     sim_dir_server: D:\simulation

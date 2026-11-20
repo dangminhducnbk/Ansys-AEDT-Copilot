@@ -1,0 +1,14 @@
+pyedb[dotnet]==0.85.0
+pythonnet
+pyaedt==1.9.0
+openpyxl
+pyyaml
+mcp<2
+# PI-DC report (aedt_copilot.pi_dc)
+numpy
+scipy
+pillow
+# Layout edit (aedt_copilot.edit_layout)
+shapely>=2.0
+# Interface simulation remote run (PyAEDT service manager, aedt_copilot.interface_sim.run)
+rpyc==6.0.2

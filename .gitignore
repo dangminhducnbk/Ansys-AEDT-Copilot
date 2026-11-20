@@ -1,0 +1,34 @@
+.venv/
+__pycache__/
+*.pyc
+*.aedb/
+*.aedt
+*.aedtresults/
+*.lock
+*.log
+_jobs/
+.tasks/
+.jobs.json
+# Du lieu board / ket qua cua user (khong dua len GitHub)
+test/
+_pidc_sample/
+autocut/
+*.siw
+*.siwaveresults/
+*.xlsx
+# Ghi chu noi bo (IP may, ten user)
+document/
+*.bak
+*.bak_*
+# init-project
+graphify-out/
+.claude/guard-off
+node_modules/
+dist/
+build/
+# 046 local only (never in the public repo): developer tests, mocks built from boards, private notes, guard list
+tests/
+specs/*/mock/
+CLAUDE.local.md
+.claude/settings.local.json
+.public_guard.local.json

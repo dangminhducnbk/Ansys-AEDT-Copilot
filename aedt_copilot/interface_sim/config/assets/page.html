@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="aedt-copilot-request" content="__REQUEST_ID__">
+<meta name="aedt-copilot-kind" content="cut-config">
+<title>Cut configuration</title>
+<style>
+__CSS__
+</style>
+</head>
+<body class="__BODY_CLASS__">
+<div class="ro-banner" id="roBanner" hidden></div>
+<div class="app">
+ <div class="top">
+  <div class="t">
+   <div class="eyebrow">Interface simulation · cut configuration</div>
+   <h1>Cut configuration</h1>
+   <div class="sub" id="subLine"></div>
+  </div>
+  <div class="chsel" id="chsel"></div>
+ </div>
+
+ <section class="card">
+  <div class="chead"><h2>Content</h2><span class="hint">Interface traced on the board · read only</span></div>
+  <div class="ctab" id="contentBody"></div>
+ </section>
+
+ <section class="card">
+  <div class="chead"><h2>Auto Generate Extent</h2><span class="hint" id="extHint"></span></div>
+  <div class="cbody">
+   <div class="side">
+    <div class="field">
+     <div class="lab" id="labType">Expansion type</div>
+     <div class="tiles" id="tiles"></div>
+    </div>
+    <div class="field">
+     <div class="lab" id="labExp">Expansion</div>
+     <div class="big"><span class="v" id="expV"></span><span class="mm">× net extent</span>
+      <div class="stepper"><button onclick="bump(-1)" aria-label="decrease">−</button><button onclick="bump(1)" aria-label="increase">+</button></div></div>
+     <input class="exp" type="range" id="rng" min="0.02" max="0.20" step="0.01" aria-label="Expansion">
+     <div class="ticks"><span>0.02</span><span class="def" id="tickDef">0.06</span><span>0.10</span><span>0.15</span><span>0.20</span></div>
+    </div>
+    <div class="field">
+     <div class="lab" id="labNets">Nets</div>
+     <div class="nets" id="nets"></div>
+    </div>
+   </div>
+   <div class="pic">
+    <div class="view">
+     <div class="zoom"><button onclick="zoomBtn(1/1.5)" title="Zoom in">+</button><button onclick="zoomBtn(1.5)" title="Zoom out">−</button><span id="zlev">100 %</span><button class="fit" onclick="zoomFit()" title="Whole view (or double-click the picture)">Fit</button></div>
+     <svg id="svg" viewBox="0 0 120 66" preserveAspectRatio="xMidYMid meet"></svg>
+     <div class="legend"><span><i style="background:#34d39930;border:1px solid var(--cut)"></i>Cut region</span><span><i style="background:#ff4fa3"></i>Signal nets</span><span><i style="background:#3b82f6"></i>GND</span><span><i style="background:#9aa0a6"></i>Other nets</span></div>
+    </div>
+    <aside class="lpanel" id="layers"></aside>
+   </div>
+  </div>
+  <div class="advbar"><button class="advbtn" id="advBtn" onclick="ADV=!ADV;render()"></button></div>
+  <div class="adv" id="advBody"></div>
+ </section>
+
+ <section class="card">
+  <div class="chead"><h2>Component Model</h2><span class="hint">Ports (coax) + solder balls of the 2 end components</span></div>
+  <div id="cmBody"></div>
+ </section>
+
+ <section class="card">
+  <div class="chead"><h2>Analysis Setup</h2><span class="hint">HFSS setup + frequency sweep · other options = Ansys defaults</span></div>
+  <div id="asBody"></div>
+ </section>
+
+ <section class="card">
+  <div class="chead"><h2>Set HFSS Model Extents</h2><span class="hint">Dielectric + airbox extents</span></div>
+  <div id="exBody"></div>
+ </section>
+</div>
+
+<div class="foot"><div class="fold" id="fold"></div><div class="in">
+ <span class="msg" id="msg"></span>
+ <button class="btn" onclick="resetChannel()">Reset</button>
+ <button class="btn pri" onclick="saveCfg()">Save</button>
+</div></div>
+
+<script type="application/json" id="cfg-data">__DATA__</script>
+<script type="application/json" id="cfg-state">__STATE__</script>
+<script>
+__JS__
+</script>
+</body>
+</html>

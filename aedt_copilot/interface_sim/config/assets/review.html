@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="aedt-copilot-request" content="__REQUEST_ID__">
+<meta name="aedt-copilot-kind" content="review-config">
+<title>Layout review and settings</title>
+<style>
+__CSS__
+__RCSS__
+</style>
+</head>
+<body>
+<div class="app2">
+ <header class="top2">
+  <div class="t">
+   <div class="eyebrow">Interface simulation · layout review + settings</div>
+   <h1>Interface simulation — review and settings</h1>
+   <div class="sub" id="subLine"></div>
+  </div>
+  <div class="units" id="units"><button data-u="mil">mil</button><button data-u="um">µm</button><button data-u="mm">mm</button></div>
+  <div class="chsel" id="chsel"></div>
+ </header>
+ <nav class="vtabs" id="vtabs">
+  <button data-v="review" class="on">1 · Review layout <span class="pid" id="tbCount"></span></button>
+  <button data-v="settings">2 · Settings <span id="tbLock"></span></button>
+  <span class="hint" id="hint"></span>
+ </nav>
+ <main class="main2">
+  <div class="pane rv on" id="paneReview">
+   <div class="side" id="side"></div>
+   <div class="pic">
+    <div class="view">
+     <div class="vsw" id="vsw"><button data-w="board" class="on">Board picture</button><button data-w="topo">Topology per pair</button></div>
+     <div class="zoom"><button onclick="zoomBtn(1/1.5)" title="Zoom in">+</button><button onclick="zoomBtn(1.5)" title="Zoom out">−</button><span id="zlev">100 %</span><button class="fit" onclick="zoomFit()" title="Whole cut area (or double-click the picture)">Fit</button></div>
+     <div class="stage"><svg id="svg" viewBox="0 0 120 66" preserveAspectRatio="xMidYMid meet"></svg><div class="marks" id="marks"></div><div class="tip" id="tip"></div></div>
+     <div class="legend"><span><i style="background:#34d39930;border:1px solid var(--cut)"></i>Cut region</span><span><i style="background:#ff4fa3"></i>Signal nets</span><span><i style="background:#3b82f6"></i>GND</span><span><i style="background:#9aa0a6"></i>Other nets</span>
+      <span><i style="background:var(--c-ref)"></i>Reference</span><span><i style="background:var(--c-via)"></i>Via</span><span><i style="background:var(--c-rt)"></i>Routing</span><span><i style="background:var(--ok)"></i>Resolved</span><span style="color:#555">Double-click = whole area</span></div>
+    </div>
+    <aside class="lpanel" id="layers"></aside>
+    <div class="topov rp" id="topo"></div>
+   </div>
+  </div>
+  <div class="pane st" id="paneSettings"><div class="ld" id="stLoad">Loading settings…</div><iframe id="stFrame" title="Settings"></iframe></div>
+ </main>
+ <div class="foot"><div class="in">
+  <span class="cnt" id="count"></span>
+  <span class="msg" id="msg"></span>
+  <span class="grow"></span>
+  <button class="btn" id="resAll">Resolve all NOT OK…</button>
+  <div class="savewrap"><button class="btn pri" id="save" disabled>Save</button><div class="why" id="why"></div></div>
+ </div></div>
+</div>
+
+<div class="modal" id="modal"><div class="box">
+  <h3>Resolve all NOT OK points?</h3>
+  <div id="mtext" style="font-size:13px"></div>
+  <textarea class="note" id="mnote" placeholder="Note for all (optional)"></textarea>
+  <div class="acts"><button class="btn" id="mno">Cancel</button><button class="btn okb" id="myes">Resolve all</button></div>
+</div></div>
+<div class="toast" id="toast"></div>
+
+<!-- data blocks: cfg-data / cfg-state first (038 reader, 040 save service) -->
+<script type="application/json" id="cfg-data">__DATA__</script>
+<script type="application/json" id="cfg-state">__STATE__</script>
+<script type="text/plain" id="cfg-page">__CFGPAGE__</script>
+<script>
+__RJS__
+</script>
+</body>
+</html>
